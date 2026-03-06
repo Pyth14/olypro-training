@@ -62,14 +62,16 @@ def test_checkpoint_list():
 
 def test_checkpoint_prune():
     runner = CliRunner()
-    result = runner.invoke(cli, ["checkpoint", "prune"])
+    result = runner.invoke(cli, ["checkpoint", "prune", "--help"])
     assert result.exit_code == 0
+    assert "Prune old checkpoints" in result.output
 
 
 def test_checkpoint_sync():
     runner = CliRunner()
-    result = runner.invoke(cli, ["checkpoint", "sync"])
+    result = runner.invoke(cli, ["checkpoint", "sync", "--help"])
     assert result.exit_code == 0
+    assert "Sync checkpoints" in result.output
 
 
 def test_eval_movenet():

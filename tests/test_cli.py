@@ -42,14 +42,16 @@ def test_runs_compare():
 
 def test_dataset_inspect():
     runner = CliRunner()
-    result = runner.invoke(cli, ["dataset", "inspect"])
+    result = runner.invoke(cli, ["dataset", "inspect", "--help"])
     assert result.exit_code == 0
+    assert "ANNOTATION_JSON" in result.output
 
 
 def test_dataset_stats():
     runner = CliRunner()
-    result = runner.invoke(cli, ["dataset", "stats"])
+    result = runner.invoke(cli, ["dataset", "stats", "--help"])
     assert result.exit_code == 0
+    assert "ANNOTATION_JSON" in result.output
 
 
 def test_checkpoint_list():

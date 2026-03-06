@@ -106,6 +106,11 @@ olytrain eval vision checkpoint.h5 --config config.yaml --output results/
 - **Optional FiftyOne** — Dataset inspection is opt-in (`pip install olytrain[fiftyone]`)
 - **DDP-safe** — Callbacks only log from rank 0
 
+## Documentation
+
+- **[Getting Started Tutorial](docs/getting-started.md)** -- step-by-step guide from install to first tracked run
+- **[Onboarding Presentation](docs/presentation.md)** -- Marp slide deck for team walkthroughs (render with `npx @marp-team/marp-cli docs/presentation.md -o slides.html`)
+
 ## Project Structure
 
 ```

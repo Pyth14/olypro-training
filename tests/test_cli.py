@@ -27,17 +27,20 @@ def test_dashboard_help():
     assert "--port" in result.output
 
 
-def test_runs_list():
+def test_runs_list_help():
     runner = CliRunner()
-    result = runner.invoke(cli, ["runs", "list"])
+    result = runner.invoke(cli, ["runs", "list", "--help"])
     assert result.exit_code == 0
-    assert "Not yet implemented" in result.output
+    assert "--experiment" in result.output
+    assert "--sort" in result.output
 
 
-def test_runs_compare():
+def test_runs_compare_help():
     runner = CliRunner()
-    result = runner.invoke(cli, ["runs", "compare"])
+    result = runner.invoke(cli, ["runs", "compare", "--help"])
     assert result.exit_code == 0
+    assert "RUN1" in result.output
+    assert "RUN2" in result.output
 
 
 def test_dataset_inspect():
@@ -74,28 +77,33 @@ def test_checkpoint_sync():
     assert "Sync checkpoints" in result.output
 
 
-def test_eval_movenet():
+def test_eval_movenet_help():
     runner = CliRunner()
-    result = runner.invoke(cli, ["eval", "movenet"])
+    result = runner.invoke(cli, ["eval", "movenet", "--help"])
     assert result.exit_code == 0
+    assert "CHECKPOINT" in result.output
 
 
-def test_eval_vision():
+def test_eval_vision_help():
     runner = CliRunner()
-    result = runner.invoke(cli, ["eval", "vision"])
+    result = runner.invoke(cli, ["eval", "vision", "--help"])
     assert result.exit_code == 0
+    assert "CHECKPOINT" in result.output
 
 
-def test_config_diff():
+def test_config_diff_help():
     runner = CliRunner()
-    result = runner.invoke(cli, ["config", "diff"])
+    result = runner.invoke(cli, ["config", "diff", "--help"])
     assert result.exit_code == 0
+    assert "CONFIG1" in result.output
+    assert "CONFIG2" in result.output
 
 
-def test_config_show():
+def test_config_show_help():
     runner = CliRunner()
-    result = runner.invoke(cli, ["config", "show"])
+    result = runner.invoke(cli, ["config", "show", "--help"])
     assert result.exit_code == 0
+    assert "CONFIG_PATH" in result.output
 
 
 def test_all_subcommands_visible_in_help():

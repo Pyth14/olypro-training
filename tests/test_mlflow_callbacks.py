@@ -7,8 +7,8 @@ from unittest.mock import patch
 
 import mlflow
 
-from olytrain.integrations.mlflow_task import MLflowTaskCallback, flatten_config
 from olytrain.integrations.mlflow_rtmpose import MLflowRTMPoseCallback
+from olytrain.integrations.mlflow_task import MLflowTaskCallback, flatten_config
 
 
 class TestFlattenConfig:

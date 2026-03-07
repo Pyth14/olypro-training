@@ -162,24 +162,24 @@ class TestCheckpointPrune:
 
 
 class TestCheckpointCLI:
-    def test_list_command_no_checkpoints(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    def test_list_command_no_checkpoints(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
         monkeypatch.setattr(
-            "olytrain.checkpoint.manager.OLYPRO_MOVENET_DIR", tmp_path / "empty_mv"
-        )
-        monkeypatch.setattr(
-            "olytrain.checkpoint.manager.OLYPRO_VISION_DIR", tmp_path / "empty_vis"
+            "olytrain.checkpoint.manager.CHECKPOINT_DIRS",
+            {"movenet": tmp_path / "empty_mv", "vision": tmp_path / "empty_vis"},
         )
         runner = CliRunner()
         result = runner.invoke(cli, ["checkpoint", "list"])
         assert result.exit_code == 0
         assert "No checkpoints found" in result.output
 
-    def test_list_command_with_checkpoints(self, ckpt_dir: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    def test_list_command_with_checkpoints(
+        self, ckpt_dir: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
         monkeypatch.setattr(
-            "olytrain.checkpoint.manager.OLYPRO_MOVENET_DIR", ckpt_dir
-        )
-        monkeypatch.setattr(
-            "olytrain.checkpoint.manager.OLYPRO_VISION_DIR", ckpt_dir.parent / "empty"
+            "olytrain.checkpoint.manager.CHECKPOINT_DIRS",
+            {"movenet": ckpt_dir, "vision": ckpt_dir.parent / "empty"},
         )
         runner = CliRunner()
         result = runner.invoke(cli, ["checkpoint", "list"], catch_exceptions=False)

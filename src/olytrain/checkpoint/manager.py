@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 
-from olytrain.config import OLYPRO_MOVENET_DIR, OLYPRO_VISION_DIR
+from olytrain.config import CHECKPOINT_DIRS
 
 CHECKPOINT_EXTENSIONS = {".pth", ".pt", ".ckpt", ".index", ".h5", ".keras", ".safetensors"}
 
@@ -35,10 +35,7 @@ class CheckpointManager:
     """Discover, list, and prune checkpoints across projects."""
 
     def __init__(self, project_dirs: dict[str, Path] | None = None) -> None:
-        self.project_dirs = project_dirs or {
-            "movenet": OLYPRO_MOVENET_DIR,
-            "vision": OLYPRO_VISION_DIR,
-        }
+        self.project_dirs = project_dirs or CHECKPOINT_DIRS
 
     def discover(self, project_dir: Path, project_name: str = "unknown") -> list[CheckpointInfo]:
         """Scan a directory recursively for checkpoint files."""

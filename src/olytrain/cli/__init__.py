@@ -7,7 +7,9 @@ from olytrain.cli.config import config
 from olytrain.cli.dashboard import dashboard
 from olytrain.cli.dataset import dataset
 from olytrain.cli.eval import eval_cmd
+from olytrain.cli.init import init
 from olytrain.cli.runs import runs
+from olytrain.cli.status import status
 
 
 @click.group()
@@ -22,3 +24,5 @@ cli.add_command(dataset)
 cli.add_command(checkpoint)
 cli.add_command(eval_cmd)
 cli.add_command(config)
+cli.add_command(init)
+cli.add_command(status)

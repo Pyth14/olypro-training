@@ -7,6 +7,31 @@ from rich.console import Console
 from rich.table import Table
 
 
+def _color_metric(name: str, value: float) -> str:
+    """Color a metric value based on known thresholds."""
+    if "loss" in name:
+        # Lower is better for loss
+        if value < 0.3:
+            return f"[green]{value:.4f}[/green]"
+        if value < 0.7:
+            return f"[yellow]{value:.4f}[/yellow]"
+        return f"[red]{value:.4f}[/red]"
+    if "acc" in name or "pck" in name:
+        # Higher is better for accuracy
+        if value >= 0.8:
+            return f"[green]{value:.4f}[/green]"
+        if value >= 0.5:
+            return f"[yellow]{value:.4f}[/yellow]"
+        return f"[red]{value:.4f}[/red]"
+    if name.startswith("AP") or name == "mAP":
+        if value >= 0.5:
+            return f"[green]{value:.4f}[/green]"
+        if value >= 0.3:
+            return f"[yellow]{value:.4f}[/yellow]"
+        return f"[red]{value:.4f}[/red]"
+    return f"{value:.4f}"
+
+
 @click.group()
 def runs() -> None:
     """Manage and inspect training runs."""
@@ -74,7 +99,11 @@ def list_runs(experiment: str | None, sort_by: str | None, limit: int) -> None:
         ]
         for col in metric_cols:
             val = row.get(col)
-            values.append(f"{val:.4f}" if val is not None and val == val else "")
+            if val is not None and val == val:
+                metric_name = col.replace("metrics.", "")
+                values.append(_color_metric(metric_name, val))
+            else:
+                values.append("")
         table.add_row(*values)
 
     console.print(table)

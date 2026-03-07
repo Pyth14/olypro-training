@@ -11,3 +11,9 @@ DEFAULT_EXPERIMENTS = ("movenet", "vision")
 
 OLYPRO_MOVENET_DIR = Path.home() / "src" / "olypro-movenet"
 OLYPRO_VISION_DIR = Path.home() / "src" / "olypro-vision"
+
+# Project-specific checkpoint directories
+CHECKPOINT_DIRS = {
+    "movenet": OLYPRO_MOVENET_DIR / "output",
+    "vision": OLYPRO_VISION_DIR / "models",
+}
